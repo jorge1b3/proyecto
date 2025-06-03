@@ -79,7 +79,7 @@ def main():
         print("\\n3. CARGANDO MODELO DENOISER...")
         try:
             device = get_device(args.device)
-            denoiser = load_denoiser(device=device)
+            denoiser = load_denoiser()
             if args.verbose:
                 print(f"   Modelo: {args.denoiser_model}")
                 print(f"   Dispositivo: {device}")
