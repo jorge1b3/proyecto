@@ -4,7 +4,7 @@ Configuración y carga del modelo denoiser
 
 import torch
 from deepinv.models import Restormer
-from .config import DEVICE, DENOISER_CONFIG
+from config import DEVICE, DENOISER_CONFIG
 
 def load_denoiser() -> Restormer:
     """

@@ -7,8 +7,8 @@ import matplotlib
 matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Optional
-from .config import DPI, FIGSIZE
-from .metrics import normalize_image
+from config import DPI, FIGSIZE
+from metrics import normalize_image
 
 def save_single_image(image: np.ndarray, title: str, filename: str, 
                      cmap: str = 'gray', dpi: int = DPI) -> None:

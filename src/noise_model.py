@@ -5,7 +5,7 @@ Modelo de ruido Poisson usando DeepInverse
 import torch
 import numpy as np
 import deepinv as dinv
-from .config import GAMMA, DEVICE
+from config import GAMMA, DEVICE
 
 def create_poisson_physics(gamma: float = GAMMA) -> dinv.physics.Denoising:
     """

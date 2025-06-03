@@ -4,7 +4,7 @@ Carga y procesamiento de imágenes
 
 import numpy as np
 import cv2
-from .config import IMAGE_SIZE
+from config import IMAGE_SIZE
 
 def load_and_preprocess_image(image_path: str, size: int = IMAGE_SIZE) -> np.ndarray:
     """

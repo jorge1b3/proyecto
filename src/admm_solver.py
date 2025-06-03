@@ -5,8 +5,8 @@ Implementación del algoritmo ADMM para Poisson + Deep Denoiser
 import torch
 import numpy as np
 from typing import Tuple, List
-from .config import DEVICE, RHO, MAX_ITER, TOLERANCE, PRINT_EVERY
-from .denoiser import apply_denoiser
+from config import DEVICE, RHO, MAX_ITER, TOLERANCE, PRINT_EVERY
+from denoiser import apply_denoiser
 
 def paso_x(y: torch.Tensor, gamma: float, rho: float, z: torch.Tensor, u: torch.Tensor) -> torch.Tensor:
     """
