@@ -62,16 +62,25 @@ def normalize_image(image: np.ndarray) -> np.ndarray:
         return image
     return (image - min_val) / (max_val - min_val)
 
-def print_metrics(original: np.ndarray, noisy: np.ndarray, restored: np.ndarray):
+def print_metrics(metrics_dict: dict = None, original: np.ndarray = None, 
+                 noisy: np.ndarray = None, restored: np.ndarray = None):
     """
     Imprimir métricas de calidad comparativas
     
     Args:
-        original: Imagen original
-        noisy: Imagen con ruido
-        restored: Imagen restaurada
+        metrics_dict: Diccionario con métricas calculadas (opción 1)
+        original: Imagen original (opción 2)
+        noisy: Imagen con ruido (opción 2)
+        restored: Imagen restaurada (opción 2)
     """
-    metrics = calculate_metrics(original, noisy, restored)
+    if metrics_dict is not None:
+        # Usar métricas ya calculadas
+        metrics = metrics_dict
+    elif original is not None and noisy is not None and restored is not None:
+        # Calcular métricas sobre la marcha
+        metrics = calculate_metrics(original, noisy, restored)
+    else:
+        raise ValueError("Debe proporcionar o un diccionario de métricas o las tres imágenes")
     
     print("\n" + "="*60)
     print("MÉTRICAS DE CALIDAD:")

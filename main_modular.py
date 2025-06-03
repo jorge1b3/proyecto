@@ -108,7 +108,7 @@ def main():
         print("\\n5. CALCULANDO MÉTRICAS DE CALIDAD...")
         try:
             metrics = calculate_metrics(original_image, noisy_image, restored_image)
-            print_metrics(metrics)
+            print_metrics(metrics_dict=metrics)
         except Exception as e:
             print(f"❌ Error calculando métricas: {e}")
             return 1
