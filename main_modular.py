@@ -96,9 +96,8 @@ def main():
                 denoiser, 
                 rho=args.rho,
                 max_iter=args.max_iter,
-                tolerance=args.tolerance,
-                print_every=args.print_every,
-                device=device
+                tol=args.tolerance,
+                print_every=args.print_every
             )
             validate_image_range(restored_image, "Imagen restaurada")
         except Exception as e:

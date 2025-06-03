@@ -69,7 +69,7 @@ def paso_u(x: torch.Tensor, z: torch.Tensor, u: torch.Tensor) -> torch.Tensor:
 
 def admm_solver(y: np.ndarray, gamma: float, denoiser, 
                 rho: float = RHO, max_iter: int = MAX_ITER, 
-                tol: float = TOLERANCE) -> Tuple[np.ndarray, List[Tuple[float, float]]]:
+                tol: float = TOLERANCE, print_every: int = PRINT_EVERY) -> Tuple[np.ndarray, List[Tuple[float, float]]]:
     """
     Implementación del algoritmo ADMM para Poisson + Deep Denoiser
     
@@ -80,6 +80,7 @@ def admm_solver(y: np.ndarray, gamma: float, denoiser,
         rho: Parámetro de penalización ADMM
         max_iter: Máximo número de iteraciones
         tol: Tolerancia para convergencia
+        print_every: Frecuencia de impresión de estadísticas
         
     Returns:
         Tuple con (imagen_restaurada, residuales)
@@ -115,7 +116,7 @@ def admm_solver(y: np.ndarray, gamma: float, denoiser,
         residual_dual = rho * torch.norm(x - x_old).item()
         residuals.append((residual_primal, residual_dual))
         
-        if k % PRINT_EVERY == 0:
+        if k % print_every == 0:
             # Calcular el costo con valores escalados correctamente
             x_scaled_for_cost = x * gamma
             cost = torch.sum(x_scaled_for_cost - y_tensor * torch.log(x_scaled_for_cost + 1e-10)).item()
