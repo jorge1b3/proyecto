@@ -43,11 +43,7 @@ def main():
         
         # Actualizar configuración global
         update_config_from_args(args)
-        
-        print("="*70)
-        print("PROYECTO PnP-ADMM PARA RESTAURACIÓN DE IMÁGENES EN BAJA LUMINOSIDAD")
-        print("Autores: Miguel Fernando Pimiento Escobar, Jorge Andrey Gracia Vega")
-        print("="*70)
+
         print("Configuración:")
         print(f"  Imagen: {args.image}")
         print(f"  Gamma: {args.gamma}")
