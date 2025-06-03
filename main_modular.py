@@ -25,7 +25,7 @@ from noise_model import apply_poisson_noise
 from denoiser import load_denoiser
 from admm_solver import admm_solver
 from metrics import calculate_metrics, print_metrics
-from visualization import save_results, save_convergence_plot
+from visualization import create_results_figure, plot_convergence, save_all_individual_images
 
 def validate_image_range(image, name):
     """Validar que la imagen esté en rango [0,1]"""
@@ -118,33 +118,31 @@ def main():
         print("\\n6. GUARDANDO RESULTADOS...")
         try:
             # Guardar visualización completa
-            save_results(
+            create_results_figure(
                 original_image, 
                 noisy_image, 
                 restored_image,
                 residuals,
-                metrics,
-                output_dir=args.output_dir,
-                dpi=args.dpi
+                filename=f"{args.output_dir}/resultados_completos.png"
             )
             
             # Guardar imágenes individuales (si no está deshabilitado)
             if not args.no_save_individual:
-                from visualization import save_individual_images
-                save_individual_images(
+                # Cambiar al directorio de salida temporalmente para las imágenes individuales
+                original_dir = os.getcwd()
+                os.chdir(args.output_dir)
+                save_all_individual_images(
                     original_image, 
                     noisy_image, 
-                    restored_image,
-                    output_dir=args.output_dir,
-                    dpi=args.dpi
+                    restored_image
                 )
+                os.chdir(original_dir)
             
             # Guardar gráfica de convergencia (si no está deshabilitado)
             if not args.no_save_plots:
-                save_convergence_plot(
+                plot_convergence(
                     residuals,
-                    output_dir=args.output_dir,
-                    dpi=args.dpi
+                    filename=f"{args.output_dir}/convergencia.png"
                 )
                 
             print(f"   ✅ Resultados guardados en: {args.output_dir}")
