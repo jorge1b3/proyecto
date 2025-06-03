@@ -60,7 +60,7 @@ def main():
         # 1. Cargar y preprocesar imagen
         print("\\n1. CARGANDO IMAGEN ORIGINAL...")
         try:
-            original_image = load_and_preprocess_image(args.image, target_size=args.size)
+            original_image = load_and_preprocess_image(args.image, size=args.size)
             validate_image_range(original_image, "Imagen original")
         except Exception as e:
             print(f"❌ Error cargando imagen: {e}")
