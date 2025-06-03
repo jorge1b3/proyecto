@@ -71,6 +71,38 @@ def print_metrics(original: np.ndarray, noisy: np.ndarray, restored: np.ndarray)
         noisy: Imagen con ruido
         restored: Imagen restaurada
     """
+    metrics = calculate_metrics(original, noisy, restored)
+    
+    print("\n" + "="*60)
+    print("MÉTRICAS DE CALIDAD:")
+    print("="*60)
+    print(f"PSNR imagen ruidosa:    {metrics['psnr_noisy']:.2f} dB")
+    print(f"PSNR imagen restaurada: {metrics['psnr_restored']:.2f} dB")
+    print(f"Mejora en PSNR:         {metrics['psnr_improvement']:.2f} dB")
+    print("-"*60)
+    print(f"MSE imagen ruidosa:     {metrics['mse_noisy']:.6f}")
+    print(f"MSE imagen restaurada:  {metrics['mse_restored']:.6f}")
+    print(f"Reducción MSE:          {((metrics['mse_noisy'] - metrics['mse_restored'])/metrics['mse_noisy'])*100:.1f}%")
+    print("-"*60)
+    print(f"MAE imagen ruidosa:     {metrics['mae_noisy']:.6f}")
+    print(f"MAE imagen restaurada:  {metrics['mae_restored']:.6f}")
+    print(f"Reducción MAE:          {((metrics['mae_noisy'] - metrics['mae_restored'])/metrics['mae_noisy'])*100:.1f}%")
+    print("="*60)
+    
+    return metrics
+
+def calculate_metrics(original: np.ndarray, noisy: np.ndarray, restored: np.ndarray) -> dict:
+    """
+    Calcular métricas de calidad comparativas
+    
+    Args:
+        original: Imagen original
+        noisy: Imagen con ruido
+        restored: Imagen restaurada
+        
+    Returns:
+        Diccionario con las métricas calculadas
+    """
     # Normalizar imagen restaurada para métricas justas
     restored_norm = normalize_image(restored)
     
@@ -82,22 +114,6 @@ def print_metrics(original: np.ndarray, noisy: np.ndarray, restored: np.ndarray)
     
     mae_noisy = calculate_mae(original, noisy)
     mae_restored = calculate_mae(original, restored_norm)
-    
-    print("\n" + "="*60)
-    print("MÉTRICAS DE CALIDAD:")
-    print("="*60)
-    print(f"PSNR imagen ruidosa:    {psnr_noisy:.2f} dB")
-    print(f"PSNR imagen restaurada: {psnr_restored:.2f} dB")
-    print(f"Mejora en PSNR:         {psnr_restored - psnr_noisy:.2f} dB")
-    print("-"*60)
-    print(f"MSE imagen ruidosa:     {mse_noisy:.6f}")
-    print(f"MSE imagen restaurada:  {mse_restored:.6f}")
-    print(f"Reducción MSE:          {((mse_noisy - mse_restored)/mse_noisy)*100:.1f}%")
-    print("-"*60)
-    print(f"MAE imagen ruidosa:     {mae_noisy:.6f}")
-    print(f"MAE imagen restaurada:  {mae_restored:.6f}")
-    print(f"Reducción MAE:          {((mae_noisy - mae_restored)/mae_noisy)*100:.1f}%")
-    print("="*60)
     
     return {
         'psnr_noisy': psnr_noisy,
