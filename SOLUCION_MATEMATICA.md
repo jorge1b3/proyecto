@@ -2,7 +2,7 @@
 
 ## Autores
 - **Miguel Fernando Pimiento Escobar**
-- **Jorge Andrey Gracia Vega**
+- **Jorge Andrey Gracia Vanegas**
 
 ---
 

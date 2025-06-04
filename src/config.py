@@ -20,12 +20,16 @@ PRINT_EVERY = 5
 DPI = 150
 FIGSIZE = (15, 10)
 
+
 # Configuración del denoiser
 DENOISER_CONFIG = {
     "in_channels": 1,
     "out_channels": 1,
-    "pretrained": "denoising_gray"
+    "pretrained": "download"
 }
+
+# Parámetro sigma para el denoiser
+SIGMA_DENOISER = 0.03  # Nivel de ruido para el denoiser
 
 # Configuración del dispositivo
 def get_device(device_arg="auto"):
@@ -72,6 +76,10 @@ def parse_arguments():
     parser.add_argument(
         "--tolerance", type=float, default=TOLERANCE,
         help="Tolerancia para convergencia"
+    )
+    parser.add_argument(
+        "--sigma", type=float, default=SIGMA_DENOISER,
+        help="Nivel de ruido del denoiser (sigma)"
     )
     
     # Configuración de imagen
@@ -123,7 +131,7 @@ def parse_arguments():
     parser.add_argument(
         "--denoiser-model", type=str, 
         default=DENOISER_CONFIG['pretrained'],
-        choices=['denoising_gray', 'denoising_color'],
+        choices=['download'],
         help="Modelo del denoiser Restormer"
     )
     
@@ -182,6 +190,7 @@ def print_config_summary(args):
     print(f"  Rho (penalización):     {RHO}")
     print(f"  Máx. iteraciones:       {MAX_ITER}")
     print(f"  Tolerancia:             {TOLERANCE}")
+    print(f"  Sigma denoiser:         {args.sigma}")
     print("\nConfiguración de imagen:")
     print(f"  Imagen de entrada:      {IMAGE_PATH}")
     print(f"  Tamaño de imagen:       {IMAGE_SIZE}x{IMAGE_SIZE}")
